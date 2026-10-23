@@ -77,16 +77,6 @@ figcaption { text-align: center; color: var(--muted); font-size: 16px; }
 
 .end { text-align: center; font-family: var(--display); font-size: 30px; padding-block: 8vh; }
 
-/* ---------- music toggle ---------- */
-#mute {
-  position: fixed; z-index: 5; left: 16px;
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  width: 48px; height: 48px; border-radius: 50%;
-  border: 1px solid var(--line); background: var(--surface); color: var(--accent);
-  display: grid; place-items: center; cursor: pointer;
-}
-#mute:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-#mute svg { width: 22px; height: 22px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -118,21 +108,16 @@ figcaption { text-align: center; color: var(--muted); font-size: 16px; }
 
 </main>
 
-<button id="mute" type="button" aria-label="השתק מוזיקה" hidden>
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path id="mute-icon" d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
-</button>
-
 <audio id="song" src="song.mp3" preload="auto" loop playsinline></audio>
 
 <script>
 const song = document.getElementById('song');
 const gate = document.getElementById('gate');
-const mute = document.getElementById('mute');
 
 // Phones block sound until the first touch, so: try right away, then again on any touch.
 function start() {
   song.volume = 1;
-  if (song.paused) song.play().then(() => { mute.hidden = false; }).catch(() => {});
+  if (song.paused) song.play().catch(() => {});
 }
 start();
 ['pointerdown', 'touchstart', 'keydown'].forEach(ev =>
@@ -141,13 +126,8 @@ start();
 document.getElementById('go').addEventListener('click', () => {
   start();
   gate.classList.add('gone');
-  mute.hidden = false;
 });
 
-mute.addEventListener('click', () => {
-  if (song.paused) { song.play().catch(() => {}); mute.style.opacity = 1; mute.setAttribute('aria-label', 'השתק מוזיקה'); }
-  else { song.pause(); mute.style.opacity = .5; mute.setAttribute('aria-label', 'נגן מוזיקה'); }
-});
 </script>
 </body>
 </html>
