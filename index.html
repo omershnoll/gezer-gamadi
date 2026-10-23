@@ -114,6 +114,11 @@ figcaption { text-align: center; color: var(--muted); font-size: 16px; }
 const song = document.getElementById('song');
 const gate = document.getElementById('gate');
 
+// Always open the letter from the top: no restored scroll, no scrolling behind the gate.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+document.documentElement.style.overflow = 'hidden';
+window.scrollTo(0, 0);
+
 // Phones block sound until the first touch, so: try right away, then again on any touch.
 function start() {
   song.volume = 1;
@@ -125,6 +130,8 @@ start();
 
 document.getElementById('go').addEventListener('click', () => {
   start();
+  window.scrollTo(0, 0);
+  document.documentElement.style.overflow = '';
   gate.classList.add('gone');
 });
 
