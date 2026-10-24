@@ -47,6 +47,8 @@ body {
   text-wrap: balance;
 }
 #gate p { margin: 0; color: var(--muted); max-width: 30ch; }
+.gate-text { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+#gate .eyebrow { color: var(--accent); font-size: 18px; letter-spacing: .03em; }
 #go {
   font: 600 20px var(--body); color: var(--bg); background: var(--accent);
   border: 0; border-radius: 999px; padding: 16px 44px; cursor: pointer;
@@ -92,7 +94,10 @@ figcaption { text-align: center; color: var(--muted); font-size: 16px; }
     <path class="wave w2" d="M66 32a24 24 0 0 1 0 32"/>
     <path class="wave w3" d="M74 24a36 36 0 0 1 0 48"/>
   </svg>
-  <h1 id="gate-title">תפעילי סאונד</h1>
+  <div class="gate-text">
+    <p class="eyebrow">קיבלת מסר משולח סודי</p>
+    <h1 id="gate-title">תפעילי סאונד</h1>
+  </div>
   <button id="go" type="button">הגברתי</button>
 </section>
 
